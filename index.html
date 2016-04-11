@@ -1,68 +1,268 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>一个人的前端之行 by fanweimei</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-dark.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Neo Blog Theme - Free HTML CSS Template-mianfeimoban.com</title>
+<meta name="keywords" content="Neo Blog Theme, Free HTML CSS Template, 2 column, header artwork" />
+<meta name="description" content="Neo Blog Theme - Free HTML CSS Template brought to you by templatemo.com" />
+<link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
+<link href="stylesheets/svwp_style.css" rel="stylesheet" type="text/css" />
 
-  </head>
-  <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/fanweimei">View On GitHub</a></li>
-        </nav>
-      </div><!-- end header -->
+<script type="text/javascript">
+	window.onload=function(){
+		var big_feature=document.getElementById('featuredslideshow');
+		var big_ul=big_feature.getElementsByTagName('ul')[0];
+		var big_li=big_feature.getElementsByTagName('li');
+		var li_bigW=big_li[0].offsetWidth;
+		var lbt=document.getElementById('larw');
+		var rbt=document.getElementById('rarw');
+		var sm_feature=document.getElementById('featuresmallicon');
+		var sm_ul=sm_feature.getElementsByTagName('ul')[0];
+		var sm_li=sm_feature.getElementsByTagName('li');
+		sm_ul.innerHTML+=sm_ul.innerHTML;
+		var li_smW=sm_li[0].offsetWidth;
+		sm_ul.style.width=sm_li.length*li_smW+'px';
+		var tt_smW=sm_ul.offsetWidth;
+		var word=document.getElementById('word');
+		var oimg=big_feature.getElementsByTagName('img');
+		
+		lbt.onclick=function(){
+			var m=sm_ul.offsetLeft%90;
+			if(m!=0){
+				sm_ul.style.left=sm_ul.offsetLeft-(90+m)+'px';
+			}
+			if(sm_ul.offsetLeft<=-tt_smW/2){
+				sm_ul.style.left='0px';
+			}
+			featureSmallMove(sm_ul,sm_ul.offsetLeft-sm_li[0].offsetWidth);
+		}
+		rbt.onclick=function(){
+			var m=sm_ul.offsetLeft%90;
+			if(m!=0){
+				sm_ul.style.left=sm_ul.offsetLeft+(90-m)+'px';
+			}
+			if(sm_ul.offsetLeft>=0){
+				sm_ul.style.left=-tt_smW/2+'px';
+			}
+			featureSmallMove(sm_ul,sm_ul.offsetLeft+sm_li[0].offsetWidth);
+		}
+		function featureSmallMove(obj,target){
+			clearInterval(obj.timer);
+			var speed=0;
+			obj.timer=setInterval(function(){
+				speed=(target-obj.offsetLeft)/7;
+				obj.style.left=obj.offsetLeft+speed+'px';
+				if (Math.abs(obj.offsetLeft-target)<7) {
+					obj.style.left=target+'px';
+					clearInterval(obj.timer);
+				}
+			},30);
+		}
+		
+		for (var i=0;i<sm_li.length;i++) {
+			sm_li[i].index=i;
+			sm_li[i].onclick=function(){
+				featureSmallMove(big_ul,-this.index%8*li_bigW);
+				word.innerHTML=oimg[this.index%8].alt;
+			};
+		}
+		
+	}
+</script>
+</head>
+<body>
 
-    <div class="wrapper">
-
-      <section>
-        <div id="title">
-          <h1>一个人的前端之行</h1>
-          <p>范伟梅个人博客</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/fanweimei">fanweimei</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
-        </div>
-
-        <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here <a href="https://guides.github.com/features/mastering-markdown/">using GitHub Flavored Markdown</a>, select a template crafted by a designer, and publish. After your page is generated, you can check out the new <code>gh-pages</code> branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.</p>
-
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
-
-<h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating pages manually</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#mentioning-users-and-teams" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
-      </section>
-
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+<div class="g_wrapper">
+	<div id="m_header">
     
-  </body>
+    	<div id="site_title">
+            <h1><a href="index.html">一个人的前端之行</a></h1>
+            <p>小黄人的个人博客</p>
+        </div> <!-- end of site_title -->
+        
+    </div>
+    <div id="m_menu">
+        <ul>
+            <li class="active"><a href="index.html" class="current">主页</a></li>
+            <li><a href="about.html">技术文章</a></li>
+            <li><a href="about.html">学习笔记</a></li>
+            <li><a href="gallery.html">前端面试题</a></li>
+            <li><a href="contact.html">个人日记</a></li>
+            <li><a href="about.html">照片展览</a></li>
+            <li><a href="about.html">留言板</a></li>
+        </ul>    	
+    </div> <!-- end of templatemo_menu -->
+</div> <!-- end of templatemo_header -->
+
+
+<div class="g_middle_wrapper_outer">
+<div class="g_middle_wrapper_inner">
+	<div class="g_middle_top"></div>
+	<div class="g_middle">
+    
+    	<div class="g_content">
+        	
+            <div class="g_slider">
+                <div id="featuredslideshow" style="height: 300px;">
+                    <ul class="clearfix"> 
+                        <li><img width="600" height="300" alt="一个男孩的承载故事" src="images/slideshow/01.jpg" /></li> 
+                        <li><img width="600" height="300" alt="那些逝去的岁月" src="images/slideshow/02.jpg" /></li> 
+                        <li><img width="600" height="300" alt="photo three" src="images/slideshow/03.jpg" /></li> 
+                        <li><img width="600" height="300" alt="photo four" src="images/slideshow/04.jpg" /></li> 
+                        <li><img width="600" height="300" alt="photo five" src="images/slideshow/05.jpg" /></li>
+                        <li><img width="600" height="300" alt="photo five" src="images/slideshow/06.jpg" /></li> 
+                        <li><img width="600" height="300" alt="photo five" src="images/slideshow/07.jpg" /></li>
+                        <li><img width="600" height="300" alt="photo five" src="images/slideshow/08.jpg" /></li> 
+                        <!-- eccetera --> 
+                    </ul> 
+                    <p ><a id="word" href="#">一个男孩的承载故事</a></p>
+                </div>
+               <div class="g-featuresmallicon">
+               		 <div id="featuresmallicon">
+	                	<ul class="clearfix">
+	                		<li><img width="80" height="40" alt="photo one" src="images/slideshow/01.jpg" /></li> 
+		                    <li><img width="80" height="40"  alt="photo two" src="images/slideshow/02.jpg" /></li> 
+		                    <li><img width="80" height="40"  alt="photo three" src="images/slideshow/03.jpg" /></li> 
+		                    <li><img width="80" height="40"  alt="photo four" src="images/slideshow/04.jpg" /></li> 
+		                    <li><img width="80" height="40"  alt="photo five" src="images/slideshow/05.jpg" /></li>
+		                    <li><img width="80" height="40"  alt="photo five" src="images/slideshow/06.jpg" /></li> 
+		                    <li><img width="80" height="40"  alt="photo five" src="images/slideshow/07.jpg" /></li>
+		                    <li><img width="80" height="40"  alt="photo five" src="images/slideshow/08.jpg" /></li> 
+	                	</ul>
+                	</div>
+                	<a id="larw" href="javascript:"><img src="images/larw.gif"/></a>
+                	<a id="rarw" href="javascript:"><img src="images/rarw.gif"/></a>
+               </div>
+            </div>
+             
+
+            <div class="post_box">
+        
+                <h2><a href="blog_post.html">PS学习笔记</a></h2>
+
+                <div class="post_meta"><strong>日期：</strong> 2017年4月11号 | <strong>作者：</strong> 范伟梅 | <a href="blog_post">评论：0</a></div>
+                <a href="#"><img src="images/templatemo_image_01.jpg" alt="image" /></a>
+                <p><a href="http://www.templatemo.com" target="_parent">
+                	第一天<br />
+                	界面五部分<br />
+                	工具栏<br />
+                	菜单栏<br />
+                	工具属性栏<br />
+                	悬浮面板<br />
+                	画布<br />
+                	画面的三种切换方式：F<br />
+					...
+                </a>
+                </p>
+                    
+              <div class="cleaner_h20"></div>
+                <div class="category"><strong>分类： </strong><a href="#">学习笔记</a></div> <div class="btn_more float_r"><a href="blog_post.html">更多 <span>&raquo;</span></a></div>
+                <div class="cleaner"></div>
+    
+            </div>
+            
+           	<div class="post_box post_box_last">
+            
+                <h2><a href="blog_post.html">2016年腾讯实习前端笔试题</a></h2>
+
+               <div class="post_meta"><strong>日期:</strong> 2016年4月11号 | <strong>作者:</strong> 范伟梅 | <a href="blog_post">评论：0</a></div>
+               <a href="#"><img src="images/templatemo_image_02.jpg" alt="image" /></a>
+                
+              	<p><a href="#">把数组中所有含有相同字母、不同排序的元素归并到一起，得到一个二维数组，二维数组的每一行包含相同字母不同排序的元素。<br />
+              		如输入数组为：<br />
+              		_inarr=['abcd','hello','bdca','olleh','cadb','nba','abn','abc'],<br />
+              		输出结果为：<br />
+              		_outarr=[['abcd','bdca','cadb','cadb'],<br />['hello','olleh'],['nba','abn']['abc']]<br />
+              		...
+              	</a>
+              	</p>
+                    
+                <div class="cleaner_h20"></div>
+                <div class="category"><strong>分类: </strong><a href="#">前端笔试题</a></div> <div class="btn_more float_r"><a href="blog_post.html">更多 <span>&raquo;</span></a></div>
+                <div class="cleaner"></div>
+    
+            </div>
+        
+        </div> <!-- end of content -->
+        
+        <div class="g_sidebar">
+        
+        	<div class="sidebar_box">
+                <div class="touxiang">
+                	<img src="images/rr.png"/>
+                </div>
+                <div class="formation ">
+                	<p>博主：小黄人</p>
+                	<p>email：1309455832@qq.com</p>
+                	<p><a href="#">给我留言</a></p>
+                </div>
+                <div class="cleaner"></div>
+            </div>              
+            
+            <div class="sidebar_box">
+            	<h4>热文推荐</h4>
+                <ul class="tmo_list ">
+                    <li><a href="index.html">PS学习笔记</a></li>
+                    <li><a href="index.html">PS学习笔记</a></li>
+                    <li><a href="index.html">PS学习笔记</a></li>
+                    <li><a href="index.html">PS学习笔记</a></li>
+                    <li><a href="index.html">PS学习笔记</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar_box visit">
+            	<h4>最近访客</h4>
+            	<ul class="clearfix">
+            		<li><a href="#"><img src="images/visited/qq_01.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_02.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_03.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_04.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_05.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_06.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_07.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_08.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_09.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            	</ul>
+            </div>
+            <div class="cleaner"></div>
+        	<div class="sidebar_box">
+        		<h4>友情链接</h4>
+        		<ul class="tmo_list"> 
+        			<li><a href="http://www.jobui.com/mianshiti/it/web/5066/">史上最全前端面试题</a></li>
+        			<li><a href="http://www.cnblogs.com/2050/p/3191744.html">js中几种实用的跨域方法原理详解</a></li>
+        			<li><a href="http://www.cnblogs.com/joetao/articles/1967017.html">javaScript面试题大全</a></li>
+        		</ul>
+        	</div>
+        </div>
+   	
+    	<div class="cleaner"></div>
+    </div> <!-- end of templatemo_middle -->
+    <div id="g_middle_bottom"></div> 
+</div>
+</div>
+
+<div class="g_copyright_wrapper">
+    <div class="m_copyright">
+    
+        Copyright © 2016 <a href="index.html">个人博客</a> by 范伟梅
+        
+    </div>
 </html>
