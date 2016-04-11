@@ -280,9 +280,10 @@ em { color: #e55822; }
 	position: absolute;
 	left: 0;
 	bottom: 0;
-	width: 100%;
+	width: 590px;
 	height: 40px;
 	margin: 0;
+	padding-left:10px;
 	line-height: 40px;
 	background: #000;
 	opacity: 0.7;
