@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>范伟梅的个人博客</title>
+<meta name="keywords" content="Neo Blog Theme, Free HTML CSS Template, 2 column, header artwork" />
+<meta name="description" content="Neo Blog Theme - Free HTML CSS Template brought to you by templatemo.com" />
+<link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
+<link href="stylesheets/svwp_style.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.g_content{
+		color: #d5cac8;
+		height: auto;
+	}
+	.g_content h2{
+		color: #fff;
+		text-align: center;
+	}
+	.g_content dt{
+		line-height: 30px;
+		color: #fff;
+		font-size: 16px;
+	}
+	.g_content dd {
+		line-height: 20px;
+		margin-bottom: 20px;
+	}
+	.g_content dd p{
+		margin: 0;
+	}
+	.code {
+		white-space: pre;
+		word-break: keep-all;
+		margin-left: -222px;
+		margin-top: -20px;
+	}
+</style>
+</head>
+<body>
+
+<div class="g_wrapper">
+	<div id="m_header">
+    
+    	<div id="site_title">
+            <h1><a href="index.html">一个人的前端之行</a></h1>
+            <p>范伟梅的个人博客</p>
+        </div> <!-- end of site_title -->
+        
+    </div>
+    <div id="m_menu">
+        <ul>
+            <li class="active"><a href="index.html" class="current">主页</a></li>
+            <li><a href="about.html">技术文章</a></li>
+            <li><a href="about.html">学习笔记</a></li>
+            <li><a href="gallery.html">前端面试题</a></li>
+            <li><a href="contact.html">个人日记</a></li>
+            <li><a href="about.html">照片展览</a></li>
+            <li><a href="about.html">留言板</a></li>
+        </ul>    	
+    </div> <!-- end of templatemo_menu -->
+</div> <!-- end of templatemo_header -->
+
+
+<div class="g_middle_wrapper_outer">
+<div class="g_middle_wrapper_inner">
+	<div class="g_middle_top"></div>
+	<div class="g_middle">
+    
+		<div class="g_content float_l">
+			<h2>2016年金山WPS实习生前端笔试题</h2>
+			<div class="m-main">
+				<dl>
+					<dt>第一题：判断一个数字是否是NaN</dt>
+					<dd>
+						<p>实现方法如下：首先NaN包括0/0，负数开根号等</p>
+						<p>方法一：</p>
+						<div class="code">
+							function pdNaN(num){
+								return isNaN(num);
+							}
+						</div>
+						<p>方法二：NaN与任何值都不相等</p>
+						<div class="code">
+							function pdNaN2(num){
+								return 2*num==2*num;
+							}
+						</div>
+						<p>测试：alert(pdNaN2(4))  //输出true</p>
+					</dd>
+					<dt>第二题：sum(2,3)=>5;sum(2)(3)=>5;用代码实现她们</dt>
+					<dd>
+						<p>sum(2,3)的实现：</p>
+						<div class="code">
+							function sum(a,b){
+								if(isNaN(a)&&isNaN(b)){
+									return a+b;
+								}else{
+									alert('a或b不是数值')
+								}
+							}
+						</div>
+						<p>sum(2)(3)的实现：</p>
+						<div class="code">
+							function sum(a){
+								return function(b){
+									return a+b;
+								}
+							}
+						</div>
+						<p>测试：alert(sum(2)(3));  //输出5</p>
+						<p>扩展 实现sum(1)(2)(3)(4)</p>
+						<p>使用了闭包的知识</p>
+						<div class="code">
+							function sumt(a){
+								var sum=a;
+								var tmp=function(b){
+									sum=sum+b;
+									return tmp;
+								}
+								tmp.toString=function(){
+									return sum;
+								}
+								return tmp;
+							}
+						</div>
+						<p>测试：alert(sumt(1)(2)(3)(4)(5));  //输出15</p>
+					</dd>
+					<dt>第三题：找出1-N整数之间的所有0的数目</dt>
+					<dd>
+						<p>方法一 先将每个数字转化为字符串，在统计字符串中字符为0的个数</p>
+						<p>未完，待续...</p>
+						<div class="code">
+							
+						</div>
+
+					</dd>
+				</dl>
+			</div>
+		</div>
+        <div class="g_sidebar">
+        
+        	<div class="sidebar_box">
+                <div class="touxiang">
+                	<img src="images/rr.png"/>
+                </div>
+                <div class="formation ">
+                	<p>博主：范伟梅</p>
+                	<p>email：1309455832@qq.com</p>
+                	<p><a href="#">给我留言</a></p>
+                </div>
+                <div class="cleaner"></div>
+            </div>              
+            
+            <div class="sidebar_box">
+            	<h4>热文推荐</h4>
+                <ul class="tmo_list ">
+                    <li><a href="index.html">PS学习笔记</a></li>
+                    <li><a href="index.html">PS学习笔记</a></li>
+                    <li><a href="index.html">PS学习笔记</a></li>
+                    <li><a href="index.html">PS学习笔记</a></li>
+                    <li><a href="index.html">PS学习笔记</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar_box visit">
+            	<h4>最近访客</h4>
+            	<ul class="clearfix">
+            		<li><a href="#"><img src="images/visited/qq_01.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_02.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_03.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_04.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_05.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_06.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_07.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_08.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            		<li><a href="#"><img src="images/visited/qq_09.png"/></a>
+            			<p>4月1号</p>
+            		</li>
+            	</ul>
+            </div>
+            <div class="cleaner"></div>
+        	<div class="sidebar_box">
+        		<h4>友情链接</h4>
+        		<ul class="tmo_list"> 
+        			<li><a href="http://www.jobui.com/mianshiti/it/web/5066/">史上最全前端面试题</a></li>
+        			<li><a href="http://www.cnblogs.com/2050/p/3191744.html">js中几种实用的跨域方法原理详解</a></li>
+        			<li><a href="http://www.cnblogs.com/joetao/articles/1967017.html">javaScript面试题大全</a></li>
+        		</ul>
+        	</div>
+        </div>
+   	
+    	<div class="cleaner"></div>
+    </div> <!-- end of templatemo_middle -->
+    <div id="g_middle_bottom"></div> 
+</div>
+</div>
+
+<div class="g_copyright_wrapper">
+    <div class="m_copyright">
+    
+        Copyright © 2016 <a href="index.html">个人博客</a> by 范伟梅
+        
+    </div>
+</html>
