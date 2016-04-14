@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			body{background: #000;}
+			#cv{background: #fff;}
+		</style>
+		<script type="text/javascript">
+			window.onload=function(){
+				var ocv=document.getElementById('cv');
+				var og=ocv.getContext('2d');
+				og.save();
+				og.rotate(Math.PI/4);
+				og.rect(100,100,100,100);
+				og.fill();
+				
+				og.clearRect(0,0,ocv.width,ocv.height);
+				og.restore();
+				//og.rect(100,100,100,100);
+			//	og.fill();
+				
+			}
+		</script>
+	</head>
+	<body>
+		<canvas id="cv" width="500" height="400"></canvas>
+	</body>
+</html>

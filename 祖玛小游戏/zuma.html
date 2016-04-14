@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{background: #000;}
+			.g-canvas{width: 600px; height: 600px; margin: 20px auto;}
+			#cv{background: #fff;}
+		</style>
+		<script type="text/javascript">
+			window.onload=function(){
+				var cv=document.getElementById('cv');
+				var og=cv.getContext('2d');
+				var r1=200;
+				var r2=150;
+				
+				var img=new Image();
+				img.src='img/person.png';
+				var w,h,angle=0;
+				
+				var black_ball=[];
+				
+				var red_ball=[];
+				
+				var timer1=setInterval(function(){
+					black_ball.push({x:300,y:0,r:20,startX:300,startY:0,r0:200,num:0});
+				},800);
+				
+				function drawBlackBall(){
+					for (var i=0;i<black_ball.length;i++) {
+						og.beginPath();
+						og.arc(black_ball[i].x,black_ball[i].y,black_ball[i].r,0,2*Math.PI,false);
+						og.closePath();
+						og.fill();
+					}
+				}
+				
+				function drawRedBall(){
+					for (var i=0;i<red_ball.length;i++) {
+						og.save();
+						og.beginPath();
+						og.arc(red_ball[i].x,red_ball[i].y,red_ball[i].r,0,2*Math.PI,false);
+						og.fillStyle='red';
+						og.closePath();
+						og.fill();
+						og.restore();
+					}
+				}
+				
+				var timer2=setInterval(function(){
+					for (var i=0;i<black_ball.length;i++) {
+						black_ball[i].num++;
+							black_ball[i].x=black_ball[i].r0*Math.sin(black_ball[i].num*Math.PI/180)+black_ball[i].startX;
+							black_ball[i].y=black_ball[i].r0-black_ball[i].r0*Math.cos(black_ball[i].num*Math.PI/180)+black_ball[i].startY;
+						if (black_ball[i].num==270) {
+							black_ball[i].r0=150;
+							black_ball[i].startX=250;
+							black_ball[i].startY=50;
+						}else if(black_ball[i].num==450){
+							clearInterval(timer1);
+							clearInterval(timer2);
+							alert('游戏结束');
+						}
+					}
+					
+					draw();
+				},50);
+				
+				
+				function drawLine(){
+					og.beginPath();
+					og.arc(300,200,r1,-Math.PI/2,Math.PI,false);
+					og.stroke();
+					og.beginPath();
+					og.arc(250,200,r2,Math.PI,2*Math.PI,false);
+					og.stroke();
+					og.beginPath();
+					og.arc(400,200,20,0,2*Math.PI,false);
+					og.stroke();
+				}
+				
+				function drawPerson(){
+						og.save();
+						og.translate(300,200);
+						og.rotate(angle);
+						og.drawImage(img,-w/2,-h/2);
+						og.restore();
+				}
+				
+				img.onload=function(){
+					w=img.width;
+					h=img.height;
+					draw();
+					
+					cv.onmousemove=function(ev){
+						var ev=ev||event;
+						var a=ev.clientX-cv.offsetLeft-300;
+						var b=ev.clientY-cv.offsetTop-200;
+						var c=Math.sqrt(a*a+b*b);
+						if(b>0){
+							angle=Math.PI-Math.asin(a/c);
+						}else{
+							angle=Math.asin(a/c);
+						}
+						draw();
+					}
+					
+					cv.onmousedown=function(ev){
+						var ev=ev||event;
+						var a=ev.clientX-cv.offsetLeft-300;
+						var b=ev.clientY-cv.offsetTop-200;
+						red_ball.push({x:300,y:200,r:20,offsetX:(a>0?1:-1),offsetY:(b>0?1:-1)});
+						drawRedBall();
+					}
+					
+				}
+				
+				var timer3=setInterval(function(){
+					for (var i=0;i<red_ball.length;i++) {
+						red_ball[i].x+=red_ball[i].offsetX;
+						red_ball[i].y+=red_ball[i].offsetY;
+						
+					}
+					draw();
+				},30);
+				
+				
+				
+				function draw(){
+					og.clearRect(0,0,cv.width,cv.height);
+					drawLine();
+					drawPerson();
+					drawBlackBall();
+					drawRedBall();
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div class="g-canvas">
+			<canvas id="cv" width="600" height="600"></canvas>
+		</div>
+	</body>
+</html>

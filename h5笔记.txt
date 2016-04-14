@@ -1,0 +1,223 @@
+语义化标签
+header页眉
+nav导航
+hgroup标题组合
+section划分区域
+article一篇独立的文章，一篇独立的博客
+aside和主体相关的附属信息
+figure用于图片视频
+figcaption用于图片视频的说明
+time用于表示时间 属性datetime
+datalist数据列表,配合option使用
+dialog   dtdd 
+details　summary
+address定义页面的作者的地址信息
+mark标记
+keygen公钥 表单
+progress进度条 含有属性max和value
+
+低版本兼容
+
+表单控件
+input  
+1.email
+2.tel
+3.url
+4.search
+5.range 属性 step min max value
+6.number
+7.color
+8.datetime
+9.datetimr-local
+10.time
+11.date
+12.week
+13.month
+表单属性
+1.placeholder提示要输入的信息
+2.autocomplete为off不保存以前输入过的信息
+3.autofocuse页面打开后自动聚焦
+4.list   ---datalist
+5.required此选项不能为空
+6.pattern正则校验
+7.formaction=''  
+表单校验
+otxt.addEventListening('invalid',fn,false);
+validity对象下的值
+1.valueMissing 当输入值为空时
+2.typeMissmatch类型不匹配
+3.patternMissmatch正则表达式
+4.tooLong超出maxLength
+5.rangeUnderflow range是否超出最小值、
+6.rangeOverflow range是都
+7.setCustomaValidity设置自定义验证
+   customError不符合自定义验证返回true
+formnovalidate属性：关闭验证
+
+
+
+选择器
+1.querySelector   只能选择一组元素的第一个元素  标签、class、[title='']
+2.querySelectorAll 获取一组
+
+classlist 获取元素的所有类名数组
+	add添加类
+	remove删除类
+	length获取长度
+	toggle有就删除，没有就添加
+
+json的新方法
+eval()把字符串转化为原生的js
+eval和parse的区别
+eval:可以解析任何字符串变为js
+parse:只能解析严格的JSON的字符串为js，安全性高点
+stringfy把JSON转化为字符串
+
+自定义属性
+属性：data-属性名
+获取：对象.dataset.属性名
+
+defer='defer'延迟加载，会按顺序执行，在onload执行前被触发
+async='async'异步加载，加载完就执行，有顺序问题
+labjs库
+
+html历史管理
+触发历史管理：1页面跳转；2hash；3pushState
+onhashchange:改变hash值事件
+方法一：
+	window.location.hash=
+	window.onhashchange=function(){}
+方法二：
+	history.pushState=
+	window.onpopstate=function(ev){var et=ev||event;ev.state;}
+
+
+元素的拖放
+给元素设置属性draggable='true' 只是拖出当前元素的一个副本
+拖曳元素事件：
+1.ondragstart 当拖拽前触发
+2.ondragend   拖拽结束时触发
+3.ondrag      拖拽时连续触发
+目标元素事件：
+1.ondragenter 拖拽元素进入时触发
+2.ondragleave 拖拽元素离开时触发
+3.ondragover  在进入和离开之间连续触发,要想触发drop事件，必须阻止默认事件，ev.preventDefault
+4.ondrop        在拖拽元素在目标元素上释放时触发
+事件的执行顺序：drop不触发的时候
+	dragstart--drag--dragenter--dragover--dragleave--dragend
+事件执行顺序：drop触发的时候
+	dragstart--drag--dragenter--dragover--drop--dragend
+
+解决火狐下不能拖动的问题
+元素.dataTransfer.setData(键值对)
+对象.dataTransfer.getData()
+dataTransfer对象（ev.dataTransfer)
+1.effectAllowed:光标样式 copy link
+2.setDragImage(对象，x,y)设置拖动显示的图片或元素
+
+拖拽外部文件
+ev.dataTransfer.files  返回一个filelist var fl=ev.dataTransfer.Files
+type文件类型
+FileReader(读取文件信息）
+var fr=new FileReader();
+fr.readAsDataURL(fl[0]);
+fr.onload=function(){}
+this.result获取结果
+
+
+
+canvas
+默认大小宽300像素，高150像素；在行内属性中写宽高，若写在样式表里，里面的图形会等比例缩放
+获取绘制环境：.getContext('2d') 
+绘制方块：.fillRect(x,y,width,height)  默认填充颜色黑色
+绘制边框：.strokeRect(x,y,width,height)  默认是一像素，但是浏览器会显示成两像素
+改变默认样式：.fillStyle='red'填充颜色
+	       strokeStyle='blue'边框颜色
+               lineWidth线条宽度
+
+边界绘制：边界连接点 
+lineJoin: 默认round（圆角）、bevel（斜角）
+lineCap:端点样式butt(默认)round（圆角）
+
+路径绘制
+beginPath()开始绘制
+moveTo(x,y) 移动到目标点
+lineTo(x,y)新的目标点
+closePath()关闭路径
+stroke划线
+.fill()填充，默认填充黑色
+rect(x,y,width,height)绘制矩形
+clearRect(x,y,width,height)清除画布的矩形区域
+save()保存路径
+restore()恢复路径
+
+绘制圆形
+arc(x,y,r,起始弧度，结束弧度，旋转方向)  旋转方向默认是顺时针false，逆时针true
+其它曲线
+arcTo(x1,y1,x2,y2,r)
+贝赛尔曲线 
+1.quadraticCurveTo(dx,dy,x1,y1)
+2.bezierCurveTo(dx1,dy2,dx1,dy2,x1,y1)
+
+translate(x,y)偏移
+rotate(弧度)旋转
+scale（sx,sy)缩放
+案例：旋转的小方块
+
+插入图片
+等图片加载完再执行canvas
+预加载onload
+var img=new Image();
+img.src=''
+img.onload=function(){oGc.drawImage(obj,x,y,w,h)}
+设置背景
+createPattern(oImg,平铺方法)
+
+线性渐变
+createlinearGradient(x1,y1,x2,y2)
+obj.addColorStop(0,'red')
+obj.addColorStop(1,'blue')
+fillStyle=obj
+
+径向渐变
+createRadialGradient(x1,y1,r1,x2,y2,r2)
+obj.addColorStop(0,'red')
+obj.addColorStop(1,'blue')
+fillStyle=obj
+
+文本
+font='大小 样式'  impact
+textAlign:水平
+textBaseline：垂直
+fillText:填充文字
+strokeText：边框文字
+measureText('文字').width获取文字宽度
+shadowColor添加文字阴影 默认黑色透明
+shadowoffsetX,shadowoffsetY：x和y偏移量
+shadowBlur高斯模糊
+strokeText(文字,x,y)
+
+获取像素信息
+getImageData(x,y,w,h)
+	data获取数据  每一个像素占四位，分别代表r,g,b,a
+setImageData(img,x,y)
+createImageData(w,h)
+putImageData(img,x,y)
+案例：图像颜色取反、图像倒影、马赛克效果
+
+
+图片合成
+globalAlpha全局透明度
+globalCompositeOperation：
+	source-over
+	destination-over
+	source-atop
+	xor
+生成图片：toDataURL
+
+事件操作
+isPointInPath(x,y)判断是否在最后一个图形区域内
+引入插件 下载和用法：http://jcscript.com/
+
+
+简易玛祖小游戏
