@@ -7,67 +7,63 @@
 			body{background: #000;}
 			.g-canvas{width: 600px; height: 600px; margin: 20px auto;}
 			#cv{background: #fff;}
+			#bt{display: block; width: 100px; height: 30px; margin: 0 auto; text-align: center; line-height: 30px; background: #fff;}
 		</style>
 		<script type="text/javascript">
 			window.onload=function(){
+				//获取按钮
+				var obt=document.getElementById('bt');
+				//获取画布
 				var cv=document.getElementById('cv');
 				var og=cv.getContext('2d');
+				//r1和r2分别代表外圆和内圆的半径
 				var r1=200;
 				var r2=150;
-				
+				//给游戏的中心点加上图片
 				var img=new Image();
 				img.src='img/person.png';
+				//w,h,angle分别代码图片的宽、高、旋转角度
 				var w,h,angle=0;
-				
+				//存放黑球
 				var black_ball=[];
-				
+				//存放红球
 				var red_ball=[];
-				
+				//定时器timer1表示每隔一段时间，产生一个黑球
 				var timer1=setInterval(function(){
 					black_ball.push({x:300,y:0,r:20,startX:300,startY:0,r0:200,num:0});
-				},800);
-				
-				function drawBlackBall(){
-					for (var i=0;i<black_ball.length;i++) {
-						og.beginPath();
-						og.arc(black_ball[i].x,black_ball[i].y,black_ball[i].r,0,2*Math.PI,false);
-						og.closePath();
-						og.fill();
-					}
-				}
-				
-				function drawRedBall(){
-					for (var i=0;i<red_ball.length;i++) {
-						og.save();
-						og.beginPath();
-						og.arc(red_ball[i].x,red_ball[i].y,red_ball[i].r,0,2*Math.PI,false);
-						og.fillStyle='red';
-						og.closePath();
-						og.fill();
-						og.restore();
-					}
-				}
-				
-				var timer2=setInterval(function(){
-					for (var i=0;i<black_ball.length;i++) {
-						black_ball[i].num++;
-							black_ball[i].x=black_ball[i].r0*Math.sin(black_ball[i].num*Math.PI/180)+black_ball[i].startX;
-							black_ball[i].y=black_ball[i].r0-black_ball[i].r0*Math.cos(black_ball[i].num*Math.PI/180)+black_ball[i].startY;
-						if (black_ball[i].num==270) {
-							black_ball[i].r0=150;
-							black_ball[i].startX=250;
-							black_ball[i].startY=50;
-						}else if(black_ball[i].num==450){
-							clearInterval(timer1);
-							clearInterval(timer2);
-							alert('游戏结束');
+				},400);
+				//当中心图片加载完时，之行下面的主函数
+				img.onload=function(){
+					w=img.width;
+					h=img.height;
+					//初始化，绘制
+					draw();
+					//当鼠标在画布上移动时，中心图的口也跟着一起移动
+					cv.onmousemove=function(ev){
+						var ev=ev||event;
+						var a=ev.clientX-cv.offsetLeft-300;
+						var b=ev.clientY-cv.offsetTop-200;
+						var c=Math.sqrt(a*a+b*b);
+						if(b>0){
+							angle=Math.PI-Math.asin(a/c);
+						}else{
+							angle=Math.asin(a/c);
 						}
+						//改变了画布中心图片的方向，重新绘制
+						draw();
+					}
+					//当鼠标按下时，产生红球
+					cv.onmousedown=function(ev){
+						var ev=ev||event;
+						var a=ev.clientX-cv.offsetLeft-300;
+						var b=ev.clientY-cv.offsetTop-200;
+						red_ball.push({x:300,y:200,r:20,offsetX:(a>0?5:-5),offsetY:(b>0?5:-5)});
+						//绘制红球
+						drawRedBall();
 					}
 					
-					draw();
-				},50);
-				
-				
+				}
+				//绘制螺旋线
 				function drawLine(){
 					og.beginPath();
 					og.arc(300,200,r1,-Math.PI/2,Math.PI,false);
@@ -79,54 +75,86 @@
 					og.arc(400,200,20,0,2*Math.PI,false);
 					og.stroke();
 				}
-				
+				//绘制中心图片
 				function drawPerson(){
 						og.save();
 						og.translate(300,200);
 						og.rotate(angle);
 						og.drawImage(img,-w/2,-h/2);
 						og.restore();
-				}
+				}	
 				
-				img.onload=function(){
-					w=img.width;
-					h=img.height;
-					draw();
-					
-					cv.onmousemove=function(ev){
-						var ev=ev||event;
-						var a=ev.clientX-cv.offsetLeft-300;
-						var b=ev.clientY-cv.offsetTop-200;
-						var c=Math.sqrt(a*a+b*b);
-						if(b>0){
-							angle=Math.PI-Math.asin(a/c);
-						}else{
-							angle=Math.asin(a/c);
+				//绘制黑球
+				function drawBlackBall(){
+					for (var i=0;i<black_ball.length;i++) {
+						og.beginPath();
+						og.arc(black_ball[i].x,black_ball[i].y,black_ball[i].r,0,2*Math.PI,false);
+						og.closePath();
+						og.fill();
+					}
+				}
+				//timer2表示黑球每隔一段时间沿着螺旋线移动
+				var timer2=setInterval(function(){
+					for (var i=0;i<black_ball.length;i++) {
+						black_ball[i].num++;
+							black_ball[i].x=black_ball[i].r0*Math.sin(black_ball[i].num*Math.PI/180)+black_ball[i].startX;
+							black_ball[i].y=black_ball[i].r0-black_ball[i].r0*Math.cos(black_ball[i].num*Math.PI/180)+black_ball[i].startY;
+						if (black_ball[i].num==270) {
+							black_ball[i].r0=150;
+							black_ball[i].startX=250;
+							black_ball[i].startY=50;
+						}else if(black_ball[i].num==450){
+							//游戏结束
+							clearInterval(timer1);
+							clearInterval(timer2);
+							clearInterval(timer3);
+							cv.onmousedown=null;
+							cv.onmousemove=null;
+							alert('游戏结束');
 						}
-						draw();
 					}
 					
-					cv.onmousedown=function(ev){
-						var ev=ev||event;
-						var a=ev.clientX-cv.offsetLeft-300;
-						var b=ev.clientY-cv.offsetTop-200;
-						red_ball.push({x:300,y:200,r:20,offsetX:(a>0?1:-1),offsetY:(b>0?1:-1)});
-						drawRedBall();
+					draw();
+				},30);
+				//绘制红球
+				function drawRedBall(){
+					for (var i=0;i<red_ball.length;i++) {
+						og.save();
+						og.beginPath();
+						og.arc(red_ball[i].x,red_ball[i].y,red_ball[i].r,0,2*Math.PI,false);
+						og.fillStyle='red';
+						og.closePath();
+						og.fill();
+						og.restore();
 					}
-					
 				}
-				
+				//timer3定时器表示红球向着鼠标按下的方向移动
 				var timer3=setInterval(function(){
 					for (var i=0;i<red_ball.length;i++) {
 						red_ball[i].x+=red_ball[i].offsetX;
 						red_ball[i].y+=red_ball[i].offsetY;
-						
+						if (isCrash(red_ball[i])) {
+							red_ball.splice(i,1);
+							draw();
+						}
 					}
 					draw();
 				},30);
-				
-				
-				
+				//红球在移动过程中，检测是否与黑球相碰，若是，则消去红球和黑球
+				function isCrash(obj){
+					var a,b,dis;
+					for (var j=0;j<black_ball.length;j++) {
+						a=obj.x-black_ball[j].x;
+						b=obj.y-black_ball[j].y
+						dis=Math.sqrt(a*a+b*b);
+						if (dis<=40) {
+							black_ball.splice(j,1);
+							return true;
+						}
+					}
+					return false;
+				}
+				//当画布中的任何图形改变时，都必须重新刷新画布
 				function draw(){
 					og.clearRect(0,0,cv.width,cv.height);
 					drawLine();
@@ -134,13 +162,17 @@
 					drawBlackBall();
 					drawRedBall();
 				}
-				
+				//重新开始实验
+				obt.onclick=function(){
+					window.location.reload();
+				}
 			}
 		</script>
 	</head>
 	<body>
 		<div class="g-canvas">
-			<canvas id="cv" width="600" height="600"></canvas>
+			<canvas id="cv" width="600" height="450"></canvas>
+			<input type="button" id="bt" value="重新开始" />
 		</div>
 	</body>
 </html>
