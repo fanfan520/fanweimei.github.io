@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			var Animal=function(name){
+				this.name=name;
+				this.sayhello=function(){
+					alert('hi!大家好，我叫'+this.name+',很开心和大家成为朋友');
+				}
+			}
+			var Dog=function(name){
+				Animal.call(this,name);
+			}
+			var dog=new Dog('小黄人');
+			dog.sayhello();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

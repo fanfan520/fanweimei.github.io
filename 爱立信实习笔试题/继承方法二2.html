@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			var Animal=function(name){
+				this.name=name;
+				this.sayhello=function(){
+					alert('hi!大家好，我叫'+this.name+',很开心和大家成为朋友');
+				}
+			}
+			Animal.prototype.age=3;
+			Animal.prototype.game=function(){
+				alert(this.name+'正在玩耍');
+			}
+			var Dog=function(name,color){
+				this.color=color;
+				//使用call实现的继承，存在一个问题，即Animal通过prototype实现的方法和成员变量,子类无法继承
+				//也可以使用Animal.apply(this,[name])
+				Animal.call(this,name);
+			}
+			Dog.prototype.getColor=function(){
+				alert('我的毛毛颜色是'+this.color);
+			}
+			var dog=new Dog('小黄人','红色');
+			dog.sayhello();
+			//dog.getColor();
+			alert(dog.age);
+			//dog.game();
+			//小结：call和apply这种方式的继承适用于没有prototype的类或者不需要继承prototype所添加的属性或函数的类；
+			//原型继承，则可以继承所有的属性和函数。
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

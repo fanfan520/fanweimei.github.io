@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+			var Animal=function (name){
+				this.name=name;
+				this.sayhello=function(){
+					alert('大家好，我叫'+this.name+',很高兴和大家成为朋友');
+				}
+			}
+			Animal.prototype.game=function(){
+				alert(this.name+'正在玩耍');
+			}
+			var Dog=function (name){
+				this.name=name;
+				//Dog.prototype.name=name;
+				//console.log(this);
+				//重写父类方法
+				this.sayhello=function(){
+					alert('hello,my name is'+this.name);
+				}
+			}
+			var Cat=function(name,age){
+				this.name=name;
+				this.age=age;
+			}
+			Dog.prototype=Cat.prototype=new Animal();
+			Cat.prototype.getAge=function(){
+				alert('我的年龄是'+this.age);
+			}
+			var dog=new Dog('小黑');
+			//dog.sayhello();
+			//dog.game();
+			
+			var cat=new Cat('小咪',1);
+			cat.sayhello();
+			cat.getAge();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
