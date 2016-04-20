@@ -17,35 +17,34 @@
 			
 			//2.sum(2,3)=>5;sum(2)(3)=>5;用代码实现她们
 			//sum(2,3)的实现
-			function sum(a,b){
-				if(isNaN(a)&&isNaN(b)){
-					return a+b;
-				}else{
+			function sum(a, b) {
+				if (isNaN(a) && isNaN(b)) {
+					return a + b;
+				} else {
 					alert('a或b不是数值')
 				}
 			}
 			//sum(2)(3)的实现
-			function sum(a){
-				return function(b){
-					return a+b;
+			function sum(a) {
+				return function(b) {
+					return a + b;
 				}
 			}
 			//alert(sum(2)(3));
 			//扩展 实现sum(1)(2)(3)(4)
 			//使用了闭包的知识
-			function sumt(a){
-				var sum=a;
-				var tmp=function(b){
-					sum=sum+b;
+			function sumt(a) {
+				var sum = a;
+				var tmp = function(b) {
+					sum = sum + b;
 					return tmp;
 				}
-				tmp.toString=function(){
+				tmp.toString = function() {
 					return sum;
 				}
 				return tmp;
 			}
-			//alert(sumt(1)(2)(3)(4)(5));
-			
+			//alert(sumt(1)(2)(3)(4)(5));			
 			//3.找出1-N整数之间的所有0的数目
 			//方法一 先将每个数字转化为字符串，在统计字符串中字符为0的个数
 			function countZeroNum(N){
@@ -78,54 +77,53 @@
 			
 			//4.用javascript的prototype描述js的继承关系
 			//方法一
-			var Person=function(name){
-				this.name=name;
-				this.sayhello=function(){
-					alert('hi,大家好，我叫'+this.name+'，很高兴和大家成为朋友');
+			var Person = function(name) {
+				this.name = name;
+				this.sayhello = function() {
+					alert('hi,大家好，我叫' + this.name + '，很高兴和大家成为朋友');
 				}
 			}
-			var per=new Person('月月');
+			var per = new Person('月月');
 			//per.sayhello();
-			var Student=function(name,grade){
-				this.name=name;
-				this.grade=grade;
+			var Student = function(name, grade) {
+				this.name = name;
+				this.grade = grade;
 			}
-			Student.prototype=new Person();
-			Student.prototype.showGrade=function(){
-				alert('我是'+this.grade+'的学生');
+			Student.prototype = new Person();
+			Student.prototype.showGrade = function() {
+				alert('我是' + this.grade + '的学生');
 			}
-			var stu=new Student('小明','大一');
+			var stu = new Student('小明', '大一');
 			//stu.sayhello();
-			//stu.showGrade();
-			
-			//5.去重
-			//方法一，利用json
-			function unique(arr){
-				var obj={};
-				var result=[];
-				for (var i=0;i<arr.length;i++) {
+			//stu.showGrade();			
+						//5.去重
+						//方法一，利用json
+			function unique(arr) {
+				var obj = {};
+				var result = [];
+				for (var i = 0; i < arr.length; i++) {
 					if (!obj[arr[i]]) {
 						result.push(arr[i]);
-						obj[arr[i]]=1;
+						obj[arr[i]] = 1;
 					}
 				}
 				return result;
 			}
 			//方法二，先排序，再quchong
-			function unique2(arr){
-				var result=[];
+			function unique2(arr) {
+				var result = [];
 				arr.sort();
-				var cur=arr[0];
+				var cur = arr[0];
 				result.push(cur);
-				for (var i=0;i<arr.length;i++) {
-					if(cur!=arr[i]){
-						cur=arr[i];
+				for (var i = 0; i < arr.length; i++) {
+					if (cur != arr[i]) {
+						cur = arr[i];
 						result.push(cur);
 					}
 				}
 				return result;
 			}
-		alert(unique2([1,13,1,5,6,5,7,7,8,13]));
+			alert(unique2([1, 13, 1, 5, 6, 5, 7, 7, 8, 13]));
 		</script>
 	</head>
 	<body>
